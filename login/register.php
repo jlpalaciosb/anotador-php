@@ -2,7 +2,7 @@
 	session_start();
 
 	if (isset($_SESSION['diario_user_logged'])) { /*Ya inició sesión*/
-		header("Location: /diario/index.php");
+		header("Location: /index.php");
 		exit();
 	}
 
@@ -19,7 +19,7 @@
 					$error = "Elija un nombre más corto";
 				} else if (registrar($newUser, $pass)) {
 					$_SESSION['diario_user_logged'] = $newUser;
-					header("Location: /diario/index.php");
+					header("Location: /index.php");
 					exit();
 				}
 			} else {
@@ -41,8 +41,8 @@
 <body>
 	<div class="container">
 		<div class="form-container">
-			<img src="/diario/res/diarioapp2.png">
-			<form method="post" action="/diario/login/register.php">
+			<img src="/res/diarioapp2.png">
+			<form method="post" action="/login/register.php">
 				<h1>Crear cuenta</h1>
 				<div class="form-group">
 					<label for="newUser">Nombre de Usuario</label>

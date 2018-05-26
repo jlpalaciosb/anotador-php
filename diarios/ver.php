@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	if (!isset($_SESSION['diario_user_logged'])) {
-		header("Location: /diario/login/index.php");
+		header("Location: /login/index.php");
 		exit();
 	}
 
@@ -60,9 +60,9 @@
 	<div class="container">
 		<h1><?php echo $dateuserDb ?></h1>
 		<textarea readonly class="form-control"><?php echo $contentDb ?></textarea>
-		<a href="<?php echo '/diario/diarios/editar.php?dateuser=' . $_GET['dateuser']; ?>">Editar</a>
+		<a href="<?php echo '/diarios/editar.php?dateuser=' . $_GET['dateuser']; ?>">Editar</a>
 		<br>
-		<a href="/diario">Página Principal</a>
+		<a href="/">Página Principal</a>
 	</div>
 </body>
 </html>

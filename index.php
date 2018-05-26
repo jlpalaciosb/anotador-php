@@ -1,11 +1,11 @@
 <?php
 	session_start();
 	if (!isset($_SESSION["diario_user_logged"])) {
-		header("Location: /diario/login/index.php");
+		header("Location: /login/index.php");
 		exit();
 	}
 	if (!isset($_GET["date"]) || format_error($_GET["date"])) {
-		header("Location: /diario/index.php?date=" . date("Y") . "-" . date("m"));
+		header("Location: /index.php?date=" . date("Y") . "-" . date("m"));
 		exit();
 	}
 	$meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "setiembre", "octubre", "noviembre", "diciembre");
@@ -17,28 +17,28 @@
 	<title>Diario</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="/diario/style.css">
+	<link rel="stylesheet" href="/style.css">
 	<meta charset="UTF-8">
 </head>
 <body>
 	<div class="container">
 		<!--Encabezado?-->
-		<img id="logo" src="/diario/res/diarioapp2.png">
+		<img id="logo" src="/res/diarioapp2.png">
 		<div id="account" class="cuadro">
 			<span>( <?php echo $_SESSION["diario_user_logged"]; ?> )</span>
-			<a href="/diario/login/logout.php">Salir</a>
+			<a href="/login/logout.php">Salir</a>
 		</div>
 		<div class="clearman"></div>
 
 		<!--Navegador de Meses-->
 		<center><div class="cuadro" style="text-align: center; max-width: 500px;">
-			<a class="btn" href="/diario/index.php?date=<?php echo mes_anterior($_GET['date'])?>">
+			<a class="btn btn-default" href="/index.php?date=<?php echo mes_anterior($_GET['date'])?>">
 				<?php echo substr($GLOBALS["meses"][intval(substr(mes_anterior($_GET['date']), 5)) - 1], 0 , 3)?>
 			</a>
 			<label style="margin-left: 10px; margin-right: 10px;">
 				<b><?php echo lindo($_GET["date"]); ?></b>		
 			</label>
-			<a class="btn" href="/diario/index.php?date=<?php echo mes_siguiente($_GET['date'])?>">
+			<a class="btn btn-default" href="/index.php?date=<?php echo mes_siguiente($_GET['date'])?>">
 				<?php echo substr($GLOBALS["meses"][intval(substr(mes_siguiente($_GET['date']), 5)) - 1], 0 , 3)?>
 			</a>
 		</div></center>
@@ -49,15 +49,15 @@
 			<h1 class="outside floated" style="margin: 0 0 0 0;">
 				Tus diarios de <?php echo lindo($_GET["date"]); ?>
 			</h1>
-			<a href="/diario/diarios/cargar.php?dateuser=<?php echo get_dateuser() ?>" style="float: right;">
-	 			<img src="/diario/res/add.png" title="Carga tu diario de hoy" style="height:42px;border:0;">
+			<a href="/diarios/cargar.php?dateuser=<?php echo get_dateuser() ?>" style="float: right;">
+	 			<img src="/res/add.png" title="Carga tu diario de hoy" style="height:42px;border:0;">
 			</a>
 			<div class="clearman"></div>
 		</div>
 		<!--End of Título de la lista-->
 
 		<!--COMIENZO de la Lista-->
-		<div class="panel panel-default">
+		<div class="panel panel-default cuadro">
 			<table class="table table-hover">
 				<tbody>
 					<?php
@@ -155,7 +155,7 @@
 		echo "<td>";
 			if (yaCargado($dateuser)) {
 				echo "<span class=\"glyphicon glyphicon-file\"></span>\n";
-				echo "<a href=\"/diario/diarios/ver.php?dateuser=" . $dateuser . "\">";
+				echo "<a href=\"/diarios/ver.php?dateuser=" . $dateuser . "\">";
 					echo lindo2($anho, $mes, $dia);
 				echo "</a>\n";
 			} else {
@@ -165,16 +165,16 @@
 
 		echo "<td class=\"text-right text-nowrap\">";
 			if (yaCargado($dateuser)) {
-				echo "<a href=\"/diario/diarios/editar.php?dateuser=" . $dateuser . "\">";
+				echo "<a href=\"/diarios/editar.php?dateuser=" . $dateuser . "\">";
 					echo "<button class=\"btn btn-xs btn-info\">Editar</button>\n";
 				echo "</a>\n";
-				echo "<a href=\"/diario/diarios/eliminar.php?dateuser=" . $dateuser . "\">";
+				echo "<a href=\"/diarios/eliminar.php?dateuser=" . $dateuser . "\">";
 					echo "<button class=\"btn btn-xs btn-warning\">";
 						echo "<span class=\"glyphicon glyphicon-trash\"></span>\n";
 					echo "</button>\n";
 				echo "</a>\n";
 			} else {
-				echo "<a href=\"/diario/diarios/cargar.php?dateuser=" . $dateuser . "\">";
+				echo "<a href=\"/diarios/cargar.php?dateuser=" . $dateuser . "\">";
 					echo "<button class=\"btn btn-xs btn-info\">Cargar</button>\n";
 				echo "</a>\n";
 			}

@@ -2,7 +2,7 @@
 	session_start();
 
 	if (isset($_SESSION['diario_user_logged'])) { /*Ya inició sesión*/
-		header("Location: /diario/index.php");
+		header("Location: /index.php");
 		exit();
 	}
 
@@ -11,7 +11,7 @@
 		if (!empty($_POST['username']) && !empty($_POST['password'])) {
 			if (autenticar($_POST['username'], $_POST['password'])) {
 				$_SESSION['diario_user_logged'] = $_POST['username'];
-				header("Location: /diario/index.php");
+				header("Location: /index.php");
 				exit();
 			} else {
 				$error = 'Nombre de usuario o contraseña incorrectos';
@@ -38,8 +38,8 @@
 <body>
 	<div class="container">
 		<div class="form-container">
-			<img src="/diario/res/diarioapp2.png">
-			<form method="post" action="/diario/login/index.php">
+			<img src="/res/diarioapp2.png">
+			<form method="post" action="/login/index.php">
 				<h1>Login</h1>
 				<div class="form-group">
 					<label for="username">Nombre de Usuario</label>
@@ -51,7 +51,7 @@
 				</div>
 				<p class="error"><?php echo $error; ?></p>
 				<center><button type="submit" class="btn btn-primary">Iniciar Sesión</button></center>
-				<p style="text-align: right;margin-top: 15px;margin-bottom: 0px;"><a href="/diario/login/register.php">Crear Cuenta</a></p>
+				<p style="text-align: right;margin-top: 15px;margin-bottom: 0px;"><a href="/login/register.php">Crear Cuenta</a></p>
 			</form>
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	if (!isset($_SESSION['diario_user_logged'])) { #debe iniciar sesión
-		header("Location: /diario/login/index.php");
+		header("Location: /login/index.php");
 		exit();
 	}
 
@@ -34,7 +34,7 @@
 <body>
 	<div class="container">
 		<h1><?php echo $dateuserDb ?></h1>
-		<form method="post" action="/diario/diarios/editar.php">
+		<form method="post" action="/diarios/editar.php">
 			<input style="display:none;" type="text" name="dateuser" value="<?php echo $_GET["dateuser"]; ?>">
 			<div class="form-group">
 				<label for="content">Edite este diario</label>
@@ -98,7 +98,7 @@
 				$stmt->bindParam(':b', $_POST["dateuser"]);
 				$stmt->execute();
 
-				header("Location: /diario/diarios/ver.php?dateuser=" . $_POST["dateuser"]);
+				header("Location: /diarios/ver.php?dateuser=" . $_POST["dateuser"]);
 				exit();
 			} else {
 				echo "No tienes permiso";

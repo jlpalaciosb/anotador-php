@@ -2,7 +2,7 @@
 	session_start();
 
 	if (!isset($_SESSION['diario_user_logged'])) {
-		header("Location: /diario/login/index.php");
+		header("Location: /login/index.php");
 		exit();
 	}
 
@@ -29,7 +29,7 @@
 			$stmt->execute();
 			$conn = null;
 		}
-		header("Location: /diario/diarios/editar.php?dateuser=" . $dateuserPar);
+		header("Location: /diarios/editar.php?dateuser=" . $dateuserPar);
 	} catch(Exception $e) {
 	    echo 'Error: ' . $e->getMessage();
 	    exit();
@@ -81,7 +81,7 @@
 	#El formato del $dateuser deber ser YYYY-MM-DD-user
 	#Tambien sirve para mitigar ataques de malintencionados
 	function format_error ($dateuser) {
-		$correct_len = 11 + strlen($_SESSION[diario_user_logged]);
+		$correct_len = 11 + strlen($_SESSION["diario_user_logged"]);
 		if (strlen($dateuser) != $correct_len) {
 			return true;
 		}
