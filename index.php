@@ -166,12 +166,12 @@
 		echo "<td class=\"text-right text-nowrap\">";
 			if (yaCargado($dateuser)) {
 				echo "<a href=\"/diarios/editar.php?dateuser=" . $dateuser . "\">";
-					echo "<button class=\"btn btn-xs btn-info\">Editar</button>\n";
+					echo "<button class=\"btn btn-xs btn-info\">Editar</button>";
 				echo "</a>\n";
 				echo "<a href=\"/diarios/eliminar.php?dateuser=" . $dateuser . "\">";
 					echo "<button class=\"btn btn-xs btn-warning\">";
-						echo "<span class=\"glyphicon glyphicon-trash\"></span>\n";
-					echo "</button>\n";
+						echo "<span class=\"glyphicon glyphicon-trash\"></span>";
+					echo "</button>";
 				echo "</a>\n";
 			} else {
 				echo "<a href=\"/diarios/cargar.php?dateuser=" . $dateuser . "\">";
