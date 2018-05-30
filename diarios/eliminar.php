@@ -8,8 +8,10 @@
 
 	$dateuserPar = "";
 	try {
-		if (!isset($_GET["dateuser"]) || empty($_GET["dateuser"]))
+		if (!isset($_GET["date"]) || empty($_GET["date"]))
 			throw new Exception("Error de parametro get");
+
+		$_GET["dateuser"] = $_GET["date"] . "-" . $_SESSION["diario_user_logged"]; //parche
 
 		$dateuserPar = $_GET["dateuser"];
 
@@ -25,6 +27,7 @@
 			$stmt->execute();
 			$conn = null;
 			echo $dateuserPar . "eliminado";
+			header("Location: " . $_GET["return"]);
 			exit();
 		} else {
 			throw new Exception("No se encontró el registro en la base de datos");

@@ -47,7 +47,7 @@
 			<h1 class="outside floated" style="margin: 0 0 0 0;">
 				Tus diarios de <?php echo legible_YM($_GET["date"]); ?>
 			</h1>
-			<a href="/diarios/cargar.php?dateuser=<?php echo get_dateuser() ?>" style="float: right;">
+			<a href="/diarios/cargar.php?date=<?php echo substr(get_dateuser(),0,10) ?>" style="float: right;">
 	 			<img src="/res/add.png" title="Carga tu diario de hoy" style="height:42px;border:0;">
 			</a>
 			<div class="clearman"></div>
@@ -80,12 +80,14 @@
 	function imprimirFila($anho, $mes, $dia) {
 		$dateuser = get_dateuser_fecha($anho, $mes, $dia);
 
+		$justDate = substr($dateuser, 0, 10);
+
 		echo "<tr>";
 
 		echo "<td>";
 			if (cargado_en_bd($dateuser)) {
 				echo "<span class=\"glyphicon glyphicon-file\"></span>\n";
-				echo "<a href=\"/diarios/ver.php?dateuser=" . $dateuser . "\">";
+				echo "<a href=\"/diarios/ver.php?date=" . $justDate . "\">";
 					echo legible_YMD($anho, $mes, $dia);
 				echo "</a>\n";
 			} else {
@@ -95,16 +97,18 @@
 
 		echo "<td class=\"text-right text-nowrap\">";
 			if (cargado_en_bd($dateuser)) {
-				echo "<a href=\"/diarios/editar.php?dateuser=" . $dateuser . "\">";
+				echo "<a href=\"/diarios/editar.php?date=" . $justDate . "\">";
 					echo "<button class=\"btn btn-xs btn-info\">Editar</button>";
 				echo "</a>\n";
-				echo "<a href=\"/diarios/eliminar.php?dateuser=" . $dateuser . "\">";
+
+				$href = "/diarios/eliminar.php?date=" . $justDate . "&return=" . $_SERVER['REQUEST_URI'];
+				echo "<a href=\"" . $href . "\">";
 					echo "<button class=\"btn btn-xs btn-warning\">";
 						echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 					echo "</button>";
 				echo "</a>\n";
 			} else {
-				echo "<a href=\"/diarios/cargar.php?dateuser=" . $dateuser . "\">";
+				echo "<a href=\"/diarios/cargar.php?date=" . $justDate . "\">";
 					echo "<button class=\"btn btn-xs btn-info\">Cargar</button>\n";
 				echo "</a>\n";
 			}

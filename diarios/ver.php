@@ -9,7 +9,9 @@
 
 	$dateuserPar = $dateuserDb = $ownerDb = $contentDb = "";
 	try {
-		if (isset($_GET["dateuser"]) && !empty($_GET["dateuser"])) {
+		if (isset($_GET["date"]) && !empty($_GET["date"])) {
+			$_GET["dateuser"] = $_GET["date"] . "-" . $_SESSION["diario_user_logged"]; //esto es un parche
+
 			$dateuserPar = $_GET["dateuser"];
 
 			$conn = null;
@@ -71,7 +73,7 @@
 		<div class="cuadro">
 			<textarea readonly class="form-control"><?php echo $contentDb ?></textarea>
 			<a class="btn btn-primary" style="margin-top: 10px"
-				href="<?php echo '/diarios/editar.php?dateuser=' . $_GET['dateuser']; ?>">
+				href="<?php echo '/diarios/editar.php?date=' . $_GET['date']; ?>">
 				Editar
 			</a>
 		</div>

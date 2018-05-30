@@ -8,7 +8,12 @@
 
 	$dateuserPar = "";
 	try {
-		if (!isset($_GET["dateuser"]) || empty($_GET["dateuser"]) || format_error($_GET["dateuser"]))
+		if (!isset($_GET["date"]) || empty($_GET["date"]))
+			throw new Exception("Error de parametro get");
+		else
+			$_GET["dateuser"] = $_GET["date"] . "-" . $_SESSION["diario_user_logged"]; //parcheado
+		
+		if(format_error($_GET["dateuser"]))
 			throw new Exception("Error de parametro get");
 
 		$dateuserPar = $_GET["dateuser"];
@@ -29,7 +34,7 @@
 			$stmt->execute();
 			$conn = null;
 		}
-		header("Location: /diarios/editar.php?dateuser=" . $dateuserPar);
+		header("Location: /diarios/editar.php?date=" . $_GET["date"]);
 	} catch(Exception $e) {
 	    echo 'Error: ' . $e->getMessage();
 	    exit();

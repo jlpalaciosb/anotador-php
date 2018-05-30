@@ -58,7 +58,9 @@
 <?php
 	function hacerEnGet() {
 		try {
-			if (isset($_GET["dateuser"]) && !empty($_GET["dateuser"])) {
+			if (isset($_GET["date"]) && !empty($_GET["date"])) {
+				$_GET["dateuser"] = $_GET["date"] . "-" . $_SESSION["diario_user_logged"]; //esto es un parche
+
 				$dateuserPar = $_GET["dateuser"];
 
 				$conn = null;
@@ -107,7 +109,7 @@
 				$stmt->bindParam(':b', $_POST["dateuser"]);
 				$stmt->execute();
 
-				header("Location: /diarios/ver.php?dateuser=" . $_POST["dateuser"]);
+				header("Location: /diarios/ver.php?date=" . substr($_POST["dateuser"], 0, 10));
 				exit();
 			} else {
 				echo "No tienes permiso";
