@@ -1,4 +1,6 @@
 <?php
+	require $_SERVER["DOCUMENT_ROOT"] . "/include/utilidades.php";
+
 	session_start();
 	if (!isset($_SESSION['diario_user_logged'])) { #debe iniciar sesión
 		header("Location: /login/index.php");
@@ -17,6 +19,8 @@
 	<title>Editar</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="/style.css">
+	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
 	<meta charset="UTF-8">
 	<script>
         var textarea = null;
@@ -33,14 +37,19 @@
 </head>
 <body>
 	<div class="container">
-		<h1><?php echo $dateuserDb ?></h1>
-		<form method="post" action="/diarios/editar.php">
+		<!--Encabezado?-->
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/include/encabezado.php"; ?>
+
+		<h1 class="outside">
+			<?php echo legible_dateuser($dateuserDb) ?>
+		</h1>
+		<form class="cuadro" method="post" action="/diarios/editar.php">
 			<input style="display:none;" type="text" name="dateuser" value="<?php echo $_GET["dateuser"]; ?>">
 			<div class="form-group">
 				<label for="content">Edite este diario</label>
 				<textarea name="content" class="form-control"><?php echo $contentDb ?></textarea>
 			</div>
-			<button type="submit" class="btn btn-primary">Guardar Cambios</button>
+			<button type="submit" class="btn btn-primary">Guardar</button>
 		</form>
 	</div>
 </body>

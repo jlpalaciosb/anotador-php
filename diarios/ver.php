@@ -1,4 +1,6 @@
 <?php
+	require $_SERVER["DOCUMENT_ROOT"] . "/include/utilidades.php";
+
 	session_start();
 	if (!isset($_SESSION['diario_user_logged'])) {
 		header("Location: /login/index.php");
@@ -47,6 +49,8 @@
 	<title>Ver</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="/style.css">
+	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
 	<meta charset="UTF-8">
 	<script>
 		var textarea = null;
@@ -58,11 +62,19 @@
 </head>
 <body>
 	<div class="container">
-		<h1><?php echo $dateuserDb ?></h1>
-		<textarea readonly class="form-control"><?php echo $contentDb ?></textarea>
-		<a href="<?php echo '/diarios/editar.php?dateuser=' . $_GET['dateuser']; ?>">Editar</a>
-		<br>
-		<a href="/">Página Principal</a>
+		<!--Encabezado?-->
+		<?php include $_SERVER["DOCUMENT_ROOT"] . "/include/encabezado.php"; ?>
+
+		<h1 class="outside">
+			<?php echo legible_dateuser($dateuserDb) ?>
+		</h1>
+		<div class="cuadro">
+			<textarea readonly class="form-control"><?php echo $contentDb ?></textarea>
+			<a class="btn btn-primary" style="margin-top: 10px"
+				href="<?php echo '/diarios/editar.php?dateuser=' . $_GET['dateuser']; ?>">
+				Editar
+			</a>
+		</div>
 	</div>
 </body>
 </html>

@@ -36,6 +36,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
 	<meta charset="UTF-8">
 </head>
 <body>
@@ -58,6 +59,7 @@
 				</div>
 				<p class="error"><?php echo $error; ?></p>
 				<center><button type="submit" class="btn btn-primary">Crear Cuenta</button></center>
+				<p style="text-align: right;margin-top: 15px;margin-bottom: 0px;"><a href="/login">Iniciar Sesión</a></p>
 			</form>
 		</div>
 	</div>

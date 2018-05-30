@@ -33,6 +33,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
 	<meta charset="UTF-8">
 </head>
 <body>
@@ -40,7 +41,7 @@
 		<div class="form-container">
 			<img src="/res/diarioapp2.png">
 			<form method="post" action="/login/index.php">
-				<h1>Login</h1>
+				<h1>Iniciar Sesión</h1>
 				<div class="form-group">
 					<label for="username">Nombre de Usuario</label>
 					<input required class="form-control" type="text" name="username" placeholder="Ingrese su nombre de usuario" value="<?php echo $username;?>">
