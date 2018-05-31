@@ -31,6 +31,10 @@
 			$ownerDb = $result[0]['owner'];
 			$contentDb = $result[0]['content'];
 
+			$contentDb = openssl_decrypt($contentDb, "AES-128-CBC",
+										 $_SESSION['user_password_md5'],
+										 0, '0000000000000000');	//parche desencriptacion
+
 			if ($ownerDb != $_SESSION['diario_user_logged']) {
 				throw new Exception("No tienes permiso");
 			}

@@ -80,6 +80,10 @@
 				$GLOBALS["ownerDb"] = $result[0]['owner'];
 				$GLOBALS["contentDb"] = $result[0]['content'];
 
+				$GLOBALS["contentDb"] = openssl_decrypt($GLOBALS["contentDb"], "AES-128-CBC",
+										 $_SESSION['user_password_md5'],
+										 0, '0000000000000000');	//parche desencriptacion
+
 				if ($GLOBALS["ownerDb"] != $_SESSION['diario_user_logged']) {
 					throw new Exception("No tienes permiso");
 				}
@@ -105,6 +109,11 @@
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				
 				$stmt = $conn->prepare("UPDATE diarios SET content=:a WHERE dateuser=:b");
+				
+				$_POST["content"] = openssl_encrypt($_POST["content"], "AES-128-CBC",
+													$_SESSION['user_password_md5'],
+													0, '0000000000000000');			//parche encriptación
+				
 				$stmt->bindParam(':a', $_POST["content"]);
 				$stmt->bindParam(':b', $_POST["dateuser"]);
 				$stmt->execute();

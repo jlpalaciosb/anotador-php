@@ -11,6 +11,7 @@
 		if (!empty($_POST['username']) && !empty($_POST['password'])) {
 			if (autenticar($_POST['username'], $_POST['password'])) {
 				$_SESSION['diario_user_logged'] = $_POST['username'];
+				$_SESSION['user_password_md5'] = md5($_POST['password'] . "xxx"); //clave para encriptar y desencriptar los diarios
 				header("Location: /index.php");
 				exit();
 			} else {

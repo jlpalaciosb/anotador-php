@@ -19,6 +19,7 @@
 					$error = "Elija un nombre más corto";
 				} else if (registrar($newUser, $pass)) {
 					$_SESSION['diario_user_logged'] = $newUser;
+					$_SESSION['user_password_md5'] = md5($_POST['pass'] . "xxx"); //clave para encriptar y desencriptar los diarios
 					header("Location: /index.php");
 					exit();
 				}

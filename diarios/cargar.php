@@ -27,10 +27,16 @@
 			$conn = new PDO("pgsql:host=localhost;dbname=diariodb", "postgres", "12345");
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			
-			$stmt = $conn->prepare("INSERT INTO diarios (dateuser,owner,content) VALUES (:a,:b,'')");
+			$stmt = $conn->prepare("INSERT INTO diarios (dateuser,owner,content) VALUES (:a,:b,:c)");
+			$string = '';
+			$string = openssl_encrypt($string, "AES-128-CBC",
+									  $_SESSION['user_password_md5'],
+									  0, '0000000000000000'); //parche encriptación
+
 			$stmt->bindParam(':a', $dateuserPar);
 			$stmt->bindParam(':b', $_SESSION['diario_user_logged']);
-
+			$stmt->bindParam(':c', $string);
+			
 			$stmt->execute();
 			$conn = null;
 		}
