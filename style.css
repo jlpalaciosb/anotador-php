@@ -3,6 +3,10 @@ body {
 	background-color: #25383C;
 }
 
+.container {
+	max-width: 800px;
+}
+
 #logo {
 	height: 60px;
 	float: left;

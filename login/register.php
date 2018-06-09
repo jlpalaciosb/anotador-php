@@ -60,7 +60,7 @@
 				</div>
 				<p class="error"><?php echo $error; ?></p>
 				<center><button type="submit" class="btn btn-primary">Crear Cuenta</button></center>
-				<p style="text-align: right;margin-top: 15px;margin-bottom: 0px;"><a href="/login">Iniciar Sesión</a></p>
+				<p style="text-align: right;margin-top: 15px;margin-bottom: 0px;"><a href="/login/index.php">Iniciar Sesión</a></p>
 			</form>
 		</div>
 	</div>
