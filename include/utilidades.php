@@ -71,7 +71,7 @@
 		$ret = date("Y") . "-";
 		$ret = $ret . date("m") . "-";
 		$ret = $ret . date("d") . "-";
-		$ret = $ret . $_SESSION["diario_user_logged"];
+		$ret = $ret . $_SESSION["logged_user"];
 		return $ret;
 	}
 
@@ -83,7 +83,7 @@
 		$str = $str . strval($mes) . "-";
 		if ($dia < 10) $str = $str . "0";
 		$str = $str . strval($dia) . "-";
-		$str = $str . $_SESSION["diario_user_logged"];
+		$str = $str . $_SESSION["logged_user"];
 		return $str;
 	}
 
@@ -91,7 +91,6 @@
 	function cargado_en_bd ($dateuser) {
 		$cargado = true;
 
-		$conn = null;
 		$conn = new PDO("pgsql:host=localhost;dbname=diariodb", "postgres", "12345");
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
@@ -108,4 +107,87 @@
 		return $cargado;
 	}
 
+	/* Retorna true si en la base de datos ya hay un registro (en la tabla diarios) con $DATEUSER como clave*/
+	function bd_has($date_user) {
+		$cargado = true;
+
+		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare('SELECT * FROM diarios WHERE dateuser=:a');
+		$stmt->bindParam(':a', $date_user);
+
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		if (empty($result))
+			$cargado = false;
+
+		$conn = null;
+
+		return $cargado;
+	}
+
+	function registered($username) {
+		$registrado = true;
+	    try {
+    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+    		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    		
+    		$stmt = $conn->prepare('SELECT * FROM users WHERE username=:a');
+    		$stmt->bindParam(':a', $username);
+			$stmt->execute();
+
+    		if ($stmt->rowCount() == 0) {
+    			$registrado = false;
+    		}
+			$conn = null;
+		} catch(Exception $ex) {
+			echo '<p class="error">Error: ' . $ex->getMessage() . '</p>';
+			exit();
+		}
+		return $registrado;
+	}
+
+	function register($username, $password) {
+		try {
+    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+    		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    		
+    		$stmt = $conn->prepare('INSERT INTO users (username, password_md5) VALUES (:a, :b)');
+    		$stmt->bindParam(':a', $username);
+    		$stmt->bindParam(':b', $password);
+
+    		$password = md5($password);
+
+    		$stmt->execute();
+    		$conn = null;
+		} catch(Exception $ex) {
+			echo '<p class="error">Error: ' . $ex->getMessage() . '</p>';
+			exit();
+		}
+		return true;
+	}
+
+	function authenticate($username, $password) {
+		$correcto = false;
+		try {
+    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+    		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    		
+    		$stmt = $conn->prepare('SELECT * FROM users WHERE username=:a AND password_md5=:b');
+    		$stmt->bindParam(':a', $username);
+    		$stmt->bindParam(':b', $password);
+
+    		$password = md5($password);
+    		$stmt->execute();
+
+    		if ($stmt->rowCount() == 1) {
+    			$correcto = true;
+    		}
+		} catch(Exception $ex) {
+			echo '<p class="error">Error: ' . $ex->getMessage() . '</p>';
+			exit();
+		}
+		return $correcto;
+	}
 ?>

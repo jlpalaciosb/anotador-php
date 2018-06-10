@@ -1,30 +1,32 @@
 <?php
+	require $_SERVER['DOCUMENT_ROOT'] . '/include/utilidades.php';
+
 	session_start();
 
-	if (isset($_SESSION['diario_user_logged'])) { /*Ya inició sesión*/
-		header("Location: /index.php");
+	if (isset($_SESSION['logged_user'])) {
+		header('Location: /index.php');
 		exit();
 	}
 
-	$newUser = $pass = $passC = $error = '';
+	$new_user = $pass = $pass_conf = $error = '';
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		if (!empty($_POST['newUser']) && !empty($_POST['pass'] && !empty($_POST['passC']))) {
-			$newUser = $_POST['newUser'];
+		if (!empty($_POST['new_user']) && !empty($_POST['pass'] && !empty($_POST['pass_conf']))) {
+			$new_user = $_POST['new_user'];
 			$pass = $_POST['pass'];
-			$passC = $_POST['passC'];
-			if (!yaRegistrado($newUser)) {
-				if ($pass != $passC) {
-					$error = "Las contraseñas no coinciden";
-				} else if (strlen($newUser) > 10) {
-					$error = "Elija un nombre más corto";
-				} else if (registrar($newUser, $pass)) {
-					$_SESSION['diario_user_logged'] = $newUser;
-					$_SESSION['user_password_md5'] = md5($_POST['pass'] . "xxx"); //clave para encriptar y desencriptar los diarios
-					header("Location: /index.php");
+			$pass_conf = $_POST['pass_conf'];
+			if (!registered($new_user)) {
+				if ($pass != $pass_conf) {
+					$error = 'Las contraseñas no coinciden';
+				} else if (strlen($new_user) > 10) {
+					$error = 'Elija un nombre más corto';
+				} else if (register($new_user, $pass)) {
+					$_SESSION['logged_user'] = $new_user;
+					$_SESSION['user_md5'] = md5($pass . 'xxx'); //clave para encriptar y desencriptar los diarios
+					header('Location: /index.php');
 					exit();
 				}
 			} else {
-				$error = "Elija otro nombre";
+				$error = 'Elija otro nombre';
 			}
 		}
 	}
@@ -47,16 +49,16 @@
 			<form method="post" action="/login/register.php">
 				<h1>Crear cuenta</h1>
 				<div class="form-group">
-					<label for="newUser">Nombre de Usuario</label>
-					<input required class="form-control" type="text" name="newUser" placeholder="Ingrese su nombre de usuario" value="<?php echo $newUser;?>">
+					<label for="new_user">Nombre de Usuario</label>
+					<input required class="form-control" type="text" name="new_user" placeholder="Ingrese su nombre de usuario" value="<?php echo $new_user ?>">
 				</div>
 				<div class="form-group">
 					<label for="pass">Contraseña</label>
-					<input required class="form-control" type="password" name="pass" placeholder="Ingrese una contraseña" value="<?php echo $pass;?>">
+					<input required class="form-control" type="password" name="pass" placeholder="Ingrese una contraseña" value="<?php echo $pass ?>">
 				</div>
 				<div class="form-group">
-					<label for="passC">Confirmar</label>
-					<input required class="form-control" type="password" name="passC" placeholder="Confirme su contraseña" value="<?php echo $passC;?>">
+					<label for="pass_conf">Confirmar</label>
+					<input required class="form-control" type="password" name="pass_conf" placeholder="Confirme su contraseña" value="<?php echo $pass_conf ?>">
 				</div>
 				<p class="error"><?php echo $error; ?></p>
 				<center><button type="submit" class="btn btn-primary">Crear Cuenta</button></center>
@@ -66,49 +68,3 @@
 	</div>
 </body>
 </html>
-
-<?php
-	function yaRegistrado($username) {
-		$registrado = true;
-		$conn = null;
-	    try {
-    		$conn = new PDO("pgsql:host=localhost;dbname=diariodb", "postgres", "12345");
-    		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    		
-    		$stmt = $conn->prepare("SELECT * FROM users WHERE username=:a");
-    		$stmt->bindParam(':a', $username);
-
-    		$stmt->execute();
-
-    		if ($stmt->rowCount() == 0) {
-    			$registrado = false;
-    		}
-
-		} catch(PDOException $e) {
-		    echo '<p class="error">Error: ' . $e->getMessage() . "</p>";
-		}
-		$conn = null;
-		return $registrado;
-	}
-
-	function registrar($username, $password) {
-		$conn = null;
-	    try {
-    		$conn = new PDO("pgsql:host=localhost;dbname=diariodb", "postgres", "12345");
-    		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    		
-    		$stmt = $conn->prepare("INSERT INTO users (username, password_md5) VALUES (:a, :b)");
-    		$stmt->bindParam(':a', $username);
-    		$stmt->bindParam(':b', $password);
-
-    		$password = md5($password);
-
-    		$stmt->execute();
-		} catch(PDOException $e) {
-		    echo '<p class="error">Error: ' . $e->getMessage() . "</p>";
-		    return false;
-		}
-		$conn = null;
-		return true;
-	}
-?>

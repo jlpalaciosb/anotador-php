@@ -1,18 +1,20 @@
 <?php
+	require $_SERVER['DOCUMENT_ROOT'] . '/include/utilidades.php';
+
 	session_start();
 
-	if (isset($_SESSION['diario_user_logged'])) { /*Ya inició sesión*/
-		header("Location: /index.php");
+	if (isset($_SESSION['logged_user'])) { /*Ya inició sesión*/
+		header('Location: /index.php');
 		exit();
 	}
 
 	$username = $password = $error = '';
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!empty($_POST['username']) && !empty($_POST['password'])) {
-			if (autenticar($_POST['username'], $_POST['password'])) {
-				$_SESSION['diario_user_logged'] = $_POST['username'];
-				$_SESSION['user_password_md5'] = md5($_POST['password'] . "xxx"); //clave para encriptar y desencriptar los diarios
-				header("Location: /index.php");
+			if (authenticate($_POST['username'], $_POST['password'])) {
+				$_SESSION['logged_user'] = $_POST['username'];
+				$_SESSION['user_md5'] = md5($_POST['password'] . 'xxx'); //clave para encriptar y desencriptar los diarios
+				header('Location: /index.php');
 				exit();
 			} else {
 				$error = 'Nombre de usuario o contraseña incorrectos';
@@ -59,30 +61,3 @@
 	</div>
 </body>
 </html>
-
-<?php
-	function autenticar($username, $password) {
-		$correcto = false;
-		$conn = null;
-	    try {
-    		$conn = new PDO("pgsql:host=localhost;dbname=diariodb", "postgres", "12345");
-    		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    		
-    		$stmt = $conn->prepare("SELECT * FROM users WHERE username=:a AND password_md5=:b");
-    		$stmt->bindParam(':a', $username);
-    		$stmt->bindParam(':b', $password);
-
-    		$password = md5($password);
-    		$stmt->execute();
-
-    		if ($stmt->rowCount() == 1) {
-    			$correcto = true;
-    		}
-
-		} catch(PDOException $e) {
-		    echo "Error: " . $e->getMessage();
-		}
-		$conn = null;
-		return $correcto;
-	}
-?>
