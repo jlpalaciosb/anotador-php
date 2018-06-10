@@ -8,7 +8,7 @@
 	}
 
 	
-	if (!isset($_GET['date']) || empty($_GET['date'])) {
+	if (!isset($_GET['date']) || empty($_GET['date']) || format_error_YMD($_GET['date'])) {
 		echo 'Error de parametro get';
 		exit();
 	}

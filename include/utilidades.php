@@ -25,16 +25,45 @@
 		return legible_YMD($anho, $mes, $dia);
 	}
 
-	#Retorna true si el string recibido $YEAR_MONTH no es del formato YYYY-MM
-	function format_error_YM ($year_month) {
-		if (strlen($year_month) != 7)
+	#Retorna true si el string recibido $YM no es del formato YYYY-MM
+	function format_error_YM ($ym) {
+		if (strlen($ym) != 7)
 			return true;
-		if (substr($year_month, 4, 1) != "-")
+
+		if (substr($ym, 4, 1) != "-")
 			return true;
-		if (intval(substr($year_month, 0, 4)) < 2000 || intval(substr($year_month, 0, 4)) > 2100)
+
+		$year = substr($ym, 0, 4);
+		if (!ctype_digit($year) || intval($year) < 2000 || intval($year) > 2100)
 			return true;
-		if (intval(substr($year_month, 5)) < 1 || intval(substr($year_month, 5) > 12))
+
+		$month = substr($ym, 5, 2);
+		if (!ctype_digit($month) || intval($month) < 1 || intval($month) > 12)
 			return true;
+
+		return false;
+	}
+
+	#Retorna true si el string recibido $YMD no es del formato YYYY-MM-DD
+	function format_error_YMD ($ymd) {
+		if (strlen($ymd) != 10)
+			return true;
+
+		if (substr($ymd, 4, 1) != '-' || substr($ymd, 7, 1) != '-')
+			return true;
+
+		$year = substr($ymd, 0, 4);
+		if (!ctype_digit($year) || intval($year) < 2000 || intval($year) > 2100)
+			return true;
+
+		$month = substr($ymd, 5, 2);
+		if (!ctype_digit($month) || intval($month) < 1 || intval($month) > 12)
+			return true;
+
+		$day = substr($ymd, 8, 2);
+		if (!ctype_digit($day) || intval($day) < 1 || intval($day) > 31)
+			return true;
+
 		return false;
 	}
 

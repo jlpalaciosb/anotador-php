@@ -60,7 +60,7 @@
 
 <?php
 	function hacerEnGet() {
-		if (isset($_GET['date']) && !empty($_GET['date'])) {
+		if (isset($_GET['date']) && !empty($_GET['date']) && !format_error_YMD($_GET['date'])) {
 			$GLOBALS['date_user'] = $_GET['date'] . '-' . $_SESSION['logged_user'];
 
 			$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
@@ -86,7 +86,7 @@
 	}
 
 	function hacerEnPost() {
-		if(isset($_POST['content']) && isset($_POST['date']) && !empty($_POST['date'])) {
+		if(isset($_POST['content']) && isset($_POST['date']) && !empty($_POST['date']) && !format_error_YMD($_POST['date'])) {
 			$_POST['content'] = openssl_encrypt($_POST['content'], 'AES-128-CBC', $_SESSION['user_md5'], 0, '0000000000000000');
 			$GLOBALS['date_user'] = $_POST['date'] . '-' . $_SESSION['logged_user'];
 			

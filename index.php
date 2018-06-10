@@ -29,15 +29,15 @@
 		<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/encabezado.php'; ?>
 
 		<!--Navegador de Meses-->
-		<center><div class="cuadro" style="text-align: center; max-width: 500px;">
+		<center><div class="cuadro" style="text-align: center; max-width: 350px;">
 			<a class="btn btn-default" href="/index.php?date=<?php echo mes_anterior($_GET['date'])?>">
-				<?php echo substr($GLOBALS['meses'][intval(substr(mes_anterior($_GET['date']), 5)) - 1], 0 , 3)?>
+				<?php echo substr($GLOBALS['meses'][intval(substr(mes_anterior($_GET['date']), 5)) - 1], 0 , 3) ?>
 			</a>
 			<label style="margin-left: 10px; margin-right: 10px;">
-				<b><?php echo legible_YM($_GET['date']); ?></b>		
+				<b><?php echo legible_YM($_GET['date']) ?></b>		
 			</label>
 			<a class="btn btn-default" href="/index.php?date=<?php echo mes_siguiente($_GET['date'])?>">
-				<?php echo substr($GLOBALS["meses"][intval(substr(mes_siguiente($_GET['date']), 5)) - 1], 0 , 3)?>
+				<?php echo substr($GLOBALS["meses"][intval(substr(mes_siguiente($_GET['date']), 5)) - 1], 0 , 3) ?>
 			</a>
 		</div></center>
 		<!--Fin del Complejo Navegador de Meses (ok no!)-->
@@ -45,7 +45,7 @@
 		<!--Título de la lista-->
 		<div style="margin-bottom: 10px;">
 			<h1 class="outside floated" style="margin: 0 0 0 0;">
-				Tus diarios de <?php echo legible_YM($_GET['date']); ?>
+				Tus diarios de <?php echo legible_YM($_GET['date']) ?>
 			</h1>
 			<a href="/diarios/cargar.php?date=<?php echo substr(get_dateuser(),0,10) ?>" style="float: right;">
 	 			<img src="/res/add.png" title="Carga tu diario de hoy" style="height:42px;border:0;">
@@ -69,8 +69,6 @@
 			</table>
 		</div>
 		<!--Fin de la Lista-->
-
-		<p class="outside">in the end</p>
 	</div>
 </body>
 </html>
