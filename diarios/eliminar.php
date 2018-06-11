@@ -29,6 +29,5 @@
 	
 	$conn = null;
 
-	header('Location: ' . $_GET['return']);
-	exit();
+	echo 'ok';
 ?>
