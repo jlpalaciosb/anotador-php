@@ -17,18 +17,22 @@
 <html lang="es">
 <head>
 	<title>Diario</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.min.css">
-	<script src="/bootstrap-3.3.7/js/tests/vendor/jquery.min.js"></script>
-	<script src="/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
-	<link rel="stylesheet" href="/style.css">
-	<link rel="stylesheet" href="/loading.css">
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/res/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/res/global.css">
+	<link rel="stylesheet" type="text/css" href="/res/loading.css">
+
+	<script type="text/javascript" src="/res/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/res/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Control modal eliminar -->
 	<script type="text/javascript">
 		var a_eliminar = 'initial';
 		var id_eliminar = -1;
-		var modal_body0 = '<p>Estás segur@ de que quieres eliminar tu diario del <span id="span"></span></p>';
+		var modal_body0 = '<p>¿Seguro que quieres eliminar tu diario del <span id="span"></span>?</p>';
 		var modal_body1 = '<p>Eliminando</p><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>';
 		var modal_body2 = '<p>Eliminado</p>';
 		var modal_footer0 = '<button type="button" class="btn btn-danger" onclick="eliminar()">Sí</button> <button type="button" class="btn btn-default" data-dismiss="modal">No</button>';
@@ -44,8 +48,8 @@
 			document.getElementById("modal-footer").innerHTML = modal_footer1;
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					if (this.responseText == "ok") {
+				if (this.readyState == 4) {
+					if (this.status == 200 && this.responseText == "ok") {
 						setTimeout(eliminado, 1000);
 					} else {
 						alert("error");
@@ -77,6 +81,7 @@
 			return day + " - " + months[parseInt(month)-1] + " - " + year;
 		}
 	</script>
+	
 </head>
 <body>
 	<div class="container">
@@ -85,25 +90,25 @@
 
 		<!--Navegador de Meses-->
 		<center><div class="cuadro" style="text-align: center; max-width: 350px;">
-			<a class="btn btn-default" href="/index.php?date=<?php echo mes_anterior($_GET['date'])?>">
+			<a class="btn btn-default" href="/index.php?date=<?php echo mes_anterior($_GET['date'])?>" style="width: 60px;">
 				<?php echo substr($GLOBALS['meses'][intval(substr(mes_anterior($_GET['date']), 5)) - 1], 0 , 3) ?>
 			</a>
 			<label style="margin-left: 10px; margin-right: 10px;">
 				<b><?php echo legible_YM($_GET['date']) ?></b>		
 			</label>
-			<a class="btn btn-default" href="/index.php?date=<?php echo mes_siguiente($_GET['date'])?>">
+			<a class="btn btn-default" href="/index.php?date=<?php echo mes_siguiente($_GET['date'])?>" style="width: 60px;">
 				<?php echo substr($GLOBALS["meses"][intval(substr(mes_siguiente($_GET['date']), 5)) - 1], 0 , 3) ?>
 			</a>
 		</div></center>
 		<!--Fin del Complejo Navegador de Meses (ok no!)-->
 
 		<!--Título de la lista-->
-		<div style="margin-bottom: 10px;">
-			<h1 class="outside floated" style="margin: 0 0 0 0;">
+		<div style="margin-bottom: 10px; margin-top: 15px;">
+			<h1 class="outside" style="margin: 0 0 0 0; float: left;">
 				Tus diarios de <?php echo legible_YM($_GET['date']) ?>
 			</h1>
 			<a href="/diarios/cargar.php?date=<?php echo substr(get_dateuser(),0,10) ?>" style="float: right;">
-	 			<img src="/res/add.png" title="Carga tu diario de hoy" style="height:42px;border:0;">
+	 			<img src="/res/add.png" title="Carga tu diario de hoy" style="height:40px;">
 			</a>
 			<div class="clearman"></div>
 		</div>
@@ -116,9 +121,11 @@
 					<?php
 						$anho = intval(substr($_GET['date'], 0, 4));
 						$mes = intval(substr($_GET['date'], 5));
+						connect_db();
 						for ($i=1; $i <= cal_days_in_month(CAL_GREGORIAN, $mes, $anho); $i++) {
 							imprimirFila($anho, $mes, $i);
 						}
+						disconnect_db();
 					?>
 				</tbody>
 			</table>
@@ -128,17 +135,19 @@
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content" style="background-color: lightgrey; padding: 10px 0px 5px 0px; border-radius: 5px;">
+					<div class="modal-header" style="background-color: lightgrey;">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Eliminar diario</h4>
 					</div>
-					<div class="modal-body" id="modal-body" style="background-color: #3a595f;color: white;"></div>
-					<div class="modal-footer" id="modal-footer"></div>
+					<div class="modal-body" id="modal-body" style="background-color: grey;color: white;"></div>
+					<div class="modal-footer" id="modal-footer" style="background-color: lightgrey;"></div>
 				</div>
 			</div>
 		</div>
 
+		<!--Footer-->
+		<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 	</div>
 </body>
 </html>

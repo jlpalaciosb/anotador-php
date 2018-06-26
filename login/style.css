@@ -2,10 +2,6 @@ html, body {
     height: 100%;
 }
 
-body {
-	background-color: #25383C;
-}
-
 .container {
 	max-width: 400px;
 	min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
@@ -21,23 +17,7 @@ body {
 	height: 60px;
 }
 
-form {
-	border-radius: 10px;
-	border: 2px solid #98AFC7;
-	padding: 20px;
-	width: 100%;
-	background-color: white;
-}
-
 form h1 {
 	text-align: center;
 	margin-top: 0px;
-}
-
-.error {
-	color: #FF0000;
-}
-
-input {
-	border-color: red;
 }

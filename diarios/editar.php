@@ -20,22 +20,34 @@
 <html lang="es">
 <head>
 	<title>Editar</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="/style.css">
-	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/res/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/res/global.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script type="text/javascript" src="/res/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/res/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/res/autosize.min.js"></script>
+	
 	<script>
-        var textarea = null;
-        window.addEventListener("load", function() {
-            textarea = window.document.querySelector("textarea");
-            textarea.addEventListener("keypress", function() {
-                if(textarea.scrollTop != 0){
-                    textarea.style.height = textarea.scrollHeight + 2 +"px";
-                }
-            }, false);
-            textarea.style.height = textarea.scrollHeight + 2 +"px";
-        }, false);
+        $(document).ready(function(){
+			autosize(document.querySelectorAll('textarea'));
+			
+			var searchInput = $('#ta');
+			// Multiply by 2 to ensure the cursor always ends up at the end;
+			// Opera sometimes sees a carriage return as 2 characters.
+			var strLength = searchInput.val().length * 2;
+			searchInput.focus();
+			searchInput[0].setSelectionRange(strLength, strLength);
+		});
+
+        // Enable navigation prompt
+		window.onbeforeunload = function() {
+	    	return true;
+		};
     </script>
 </head>
 <body>
@@ -50,10 +62,13 @@
 			<input style="display:none;" type="text" name="date" value="<?php echo $_GET["date"]; ?>">
 			<div class="form-group">
 				<label for="content">Edite este diario</label>
-				<textarea name="content" class="form-control"><?php echo $content ?></textarea>
+				<textarea id="ta" rows="4" name="content" class="form-control"><?php echo $content ?></textarea>
 			</div>
-			<button type="submit" class="btn btn-primary">Guardar</button>
+			<button type="submit" class="btn btn-primary" onclick="window.onbeforeunload=null">Guardar</button>
 		</form>
+
+		<!--Footer-->
+		<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 	</div>
 </body>
 </html>
@@ -72,7 +87,8 @@
 			$stmt->execute();
 			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			if (empty($result)) {
-				echo 'No se encontró registro en la base de datos';
+				http_response_code(404);
+				include($_SERVER['DOCUMENT_ROOT'] . '/include/404.php');		
 				exit();
 			}
 
@@ -80,7 +96,8 @@
 
 			$conn = null;
 		} else {
-			echo 'Error de parametro get';
+			http_response_code(400);
+			include($_SERVER['DOCUMENT_ROOT'] . '/include/400.php');		
 			exit();
 		}
 	}
@@ -102,7 +119,9 @@
 
 			header('Location: /diarios/ver.php?date=' . $_POST['date']);
 		} else {
-			echo 'Error de datos post';
+			http_response_code(400);
+			include($_SERVER['DOCUMENT_ROOT'] . '/include/400.php');		
+			//exit();
 		}
 		exit();
 	}

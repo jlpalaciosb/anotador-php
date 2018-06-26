@@ -8,7 +8,8 @@
 	}
 
 	if (!isset($_GET['date']) || empty($_GET['date']) || format_error_YMD($_GET['date'])) {
-		echo 'Error de parametro get';
+		http_response_code(400);
+		include($_SERVER['DOCUMENT_ROOT'] . '/include/400.php');		
 		exit();
 	}
 	

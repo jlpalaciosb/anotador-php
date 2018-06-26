@@ -33,30 +33,36 @@
 <html lang="es">
 <head>
 	<title>Diario App Login</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="style.css">
-	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/res/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/res/global.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<div class="container">
 		<div class="form-container">
 			<img src="/res/diarioapp2.png">
-			<form method="post" action="/login/index.php">
+			<form class="cuadro" method="post" action="/login/index.php">
 				<h1>Iniciar Sesión</h1>
 				<div class="form-group">
 					<label for="username">Nombre de Usuario</label>
-					<input required class="form-control" type="text" name="username" placeholder="Ingrese su nombre de usuario" value="<?php echo $username;?>">
+					<input autofocus required class="form-control" type="text" name="username" placeholder="Ingresa tu nombre de usuario" value="<?php echo $username;?>">
 				</div>
 				<div class="form-group">
 					<label for="password">Contraseña</label>
-					<input required class="form-control" type="password" name="password" placeholder="Ingrese su contraseña" value="<?php echo $password;?>">
+					<input required class="form-control" type="password" name="password" placeholder="Ingresa tu contraseña" value="<?php echo $password;?>">
 				</div>
 				<p class="error"><?php echo $error; ?></p>
 				<center><button type="submit" class="btn btn-primary">Iniciar Sesión</button></center>
 				<p style="text-align: right;margin-top: 15px;margin-bottom: 0px;"><a href="/login/register.php">Crear Cuenta</a></p>
 			</form>
+
+			<div style="margin-top: 10px;"></div>
+			<!--Footer-->
+			<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 		</div>
 	</div>
 </body>

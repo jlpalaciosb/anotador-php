@@ -9,14 +9,16 @@
 
 	
 	if (!isset($_GET['date']) || empty($_GET['date']) || format_error_YMD($_GET['date'])) {
-		echo 'Error de parametro get';
+		http_response_code(400);
+		include($_SERVER['DOCUMENT_ROOT'] . '/include/400.php');		
 		exit();
 	}
 
 	$date_user = $_GET['date'] . '-' . $_SESSION['logged_user'];
 
 	if (!bd_has($date_user)) {
-		echo 'No se encontró el registro en la base de datos';
+		http_response_code(404);
+		include($_SERVER['DOCUMENT_ROOT'] . '/include/404.php');		
 		exit();
 	}
 	

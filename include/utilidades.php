@@ -1,6 +1,10 @@
 <?php
 	$meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "setiembre", "octubre", "noviembre", "diciembre");
 	
+	//para no conectarse y desconectarse a cada rato, ya que eso ralentiza el proceso
+	$global_connection = null;
+	$global_connected = false;
+
 	#Recibe = YYYY-MM
 	#Retorna = mes AÑO, ejemplo = mayo 2018
 	function legible_YM ($year_month) {
@@ -140,8 +144,12 @@
 	function bd_has($date_user) {
 		$cargado = true;
 
-		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		if ($GLOBALS['global_connected']) {
+			$conn = $GLOBALS['global_connection'];
+		} else {
+			$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		}
 		
 		$stmt = $conn->prepare('SELECT * FROM diarios WHERE dateuser=:a');
 		$stmt->bindParam(':a', $date_user);
@@ -154,6 +162,17 @@
 		$conn = null;
 
 		return $cargado;
+	}
+
+	//para no conectarse y desconectarse a cada rato, ya que eso ralentiza el proceso
+	function connect_db () {
+		$GLOBALS['global_connection'] = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+		$GLOBALS['global_connection']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$GLOBALS['global_connected'] = true;
+	}
+	function disconnect_db () {
+		$GLOBALS['global_connection'] = null;
+		$GLOBALS['global_connected'] = false;
 	}
 
 	function registered($username) {

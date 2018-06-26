@@ -1,40 +1,20 @@
-body {
-	padding-top: 10px;
-	background-color: #25383C;
+#ta {
+	background-image: url("/res/ta-bg.png");
+	background-position: 0px 4px;
+	resize: none;
+	border: none;
+	box-shadow: none;
+	margin-top: 5px;
 }
 
-#logo {
-	height: 60px;
-	float: left;
+#ta:focus {
+	
 }
 
-#account {
-	float: right;
+.edit-btn {
+	/*animation: 2s mymove infinite;*/
 }
 
-.cuadro {
-	border-radius: 5px;
-	border: 2px solid #98AFC7;
-	padding: 10px;
-	background-color: white;
-	margin-bottom: 10px;
-}
-
-.outside {
-	color: white;
-}
-
-.clearman {
-	clear: both;
-}
-
-.floated {
-	float: left;
-}
-
-.separator {
-	margin-left: 10px;
-	margin-right: 10px;
-	border-right: 1px solid white;
-	height: 42px;
+@keyframes mymove {
+	50% {box-shadow: 0 0 10px red;}
 }

@@ -8,7 +8,8 @@
 	}
 
 	if (!isset($_GET['date']) || empty($_GET['date']) || format_error_YMD($_GET['date'])) {
-		echo 'Error de parametro get';
+		http_response_code(400);
+		include($_SERVER['DOCUMENT_ROOT'] . '/include/400.php');		
 		exit();
 	}
 	
@@ -23,7 +24,8 @@
 	$stmt->execute();
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	if (empty($result)) {
-		echo 'No se encontró registro en la base de datos';
+		http_response_code(404);
+		include($_SERVER['DOCUMENT_ROOT'] . '/include/404.php');
 		exit();
 	}
 
@@ -38,17 +40,25 @@
 <html lang="es">
 <head>
 	<title>Ver</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="/style.css">
-	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="/res/diarioapp.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/res/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/res/global.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script type="text/javascript" src="/res/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/res/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/res/autosize.min.js"></script>
+
 	<script>
-		var textarea = null;
-		window.addEventListener("load", function() {
-			textarea = window.document.querySelector("textarea");
-			textarea.style.height = textarea.scrollHeight + 2 + "px";
-		}, false);
+		$(document).ready(function(){
+			autosize(document.querySelectorAll('textarea'));
+			$("#ta").on("keypress",function(e){
+				$(".edit-btn").css("animation", "1s mymove infinite");
+			});
+		});
 	</script>
 </head>
 <body>
@@ -60,9 +70,12 @@
 			<?php echo legible_dateuser($date_user) ?>
 		</h1>
 		<div class="cuadro">
-			<textarea readonly class="form-control"><?php echo $content_db ?></textarea>
-			<a class="btn btn-primary" style="margin-top: 10px" href="<?php echo '/diarios/editar.php?date=' . $_GET['date']; ?>">Editar</a>
+			<textarea readonly id="ta" class="form-control" rows="4"><?php echo $content_db ?></textarea>
+			<a class="btn btn-primary edit-btn" style="margin-top: 10px" href="<?php echo '/diarios/editar.php?date=' . $_GET['date']; ?>">Editar</a>
 		</div>
+
+		<!--Footer-->
+		<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
 	</div>
 </body>
 </html>
