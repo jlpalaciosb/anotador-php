@@ -59,7 +59,7 @@
 		<div class="form-container">
 			<img src="/res/diarioapp2.png">
 			<form class="cuadro" method="post" action="/login/register.php">
-				<h1>Crear cuenta</h1>
+				<h2>Crear cuenta</h2>
 				<div class="form-group">
 					<label for="new_user">Nombre de Usuario</label>
 					<input required class="form-control" type="text" name="new_user" placeholder="Escoge un nombre de usuario" value="<?php echo $new_user ?>" autofocus>

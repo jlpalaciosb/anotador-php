@@ -80,6 +80,10 @@
 			var day = ymd.substr(8,2);
 			return day + " - " + months[parseInt(month)-1] + " - " + year;
 		}
+		$(document).ready(function(){
+			/*$("tr").hover(function(){ $(this).find("td").first().stop().animate({left: "10px"}, "fast"); }, function(){$(this).find("td").first().stop().animate({left: "0px"}, "fast");});
+			$("tr td").css({"position": "relative"});*/
+		})
 	</script>
 	
 </head>
