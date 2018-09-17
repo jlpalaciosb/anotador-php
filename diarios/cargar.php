@@ -29,5 +29,6 @@
 		$stmt->execute();
 		$conn = null;
 	}
+	
 	header('Location: /diarios/editar.php?date=' . $_GET['date']);
 ?>

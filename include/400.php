@@ -16,12 +16,12 @@
 </head>
 <body>
 	<div class="container">
-		<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/encabezado.php'; ?>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/encabezado.php' ?>
 		<div class="cuadro">
 			<p class="error margintop">Error!</p>
 			<p>Bad Request</p>
 		</div>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.php'; ?>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.php' ?>
 	</div>
 </body>
 </html>
