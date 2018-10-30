@@ -15,7 +15,7 @@
 	
 	$date_user = $_GET['date'] . '-' . $_SESSION['logged_user'];
 
-	$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+	$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	$stmt = $conn->prepare('SELECT * FROM diarios WHERE dateuser=:a');

@@ -147,7 +147,7 @@
 		if ($GLOBALS['global_connected']) {
 			$conn = $GLOBALS['global_connection'];
 		} else {
-			$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+			$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		
@@ -166,7 +166,7 @@
 
 	//para no conectarse y desconectarse a cada rato, ya que eso ralentiza el proceso
 	function connect_db () {
-		$GLOBALS['global_connection'] = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+		$GLOBALS['global_connection'] = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
 		$GLOBALS['global_connection']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$GLOBALS['global_connected'] = true;
 	}
@@ -178,7 +178,7 @@
 	function registered($username) {
 		$registrado = true;
 	    try {
-    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
     		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     		
     		$stmt = $conn->prepare('SELECT * FROM users WHERE username=:a');
@@ -198,7 +198,7 @@
 
 	function register($username, $password) {
 		try {
-    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
     		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     		
     		$stmt = $conn->prepare('INSERT INTO users (username, password_md5) VALUES (:a, :b)');
@@ -219,7 +219,7 @@
 	function authenticate($username, $password) {
 		$correcto = false;
 		try {
-    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+    		$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
     		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     		
     		$stmt = $conn->prepare('SELECT * FROM users WHERE username=:a AND password_md5=:b');

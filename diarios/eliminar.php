@@ -21,7 +21,7 @@
 		exit();
 	}
 
-	$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+	$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 	$stmt = $conn->prepare('DELETE FROM diarios WHERE dateuser=:a');

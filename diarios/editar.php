@@ -78,7 +78,7 @@
 		if (isset($_GET['date']) && !empty($_GET['date']) && !format_error_YMD($_GET['date'])) {
 			$GLOBALS['date_user'] = $_GET['date'] . '-' . $_SESSION['logged_user'];
 
-			$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+			$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			
 			$stmt = $conn->prepare('SELECT * FROM diarios WHERE dateuser=:a');
@@ -107,7 +107,7 @@
 			$_POST['content'] = openssl_encrypt($_POST['content'], 'AES-128-CBC', $_SESSION['user_md5'], 0, '0000000000000000');
 			$GLOBALS['date_user'] = $_POST['date'] . '-' . $_SESSION['logged_user'];
 			
-			$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', '12345');
+			$conn = new PDO('pgsql:host=localhost;dbname=diariodb', 'postgres', 'admin');
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			
 			$stmt = $conn->prepare('UPDATE diarios SET content=:a WHERE dateuser=:b');
