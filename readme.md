@@ -1,4 +1,5 @@
 # Encriptar y desencriptar cosas
+Para asegurar que en la base de datos, los diarios se guardan encriptados.
 
 ## Clave
 `$_SESSION['user_md5'] = md5($user_login_password . "xxx");`
