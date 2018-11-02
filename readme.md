@@ -2,10 +2,10 @@
 Para asegurar que en la base de datos, los diarios se guardan encriptados.
 
 ## Clave
-`$_SESSION['user_md5'] = md5($user_login_password . "xxx");`
+`$_SESSION['crypt_key'] = md5($username . $password);`
 
 ## Encriptar
-`$content = openssl_encrypt($content, "AES-128-CBC", $_SESSION['user_md5'], 0, '0000000000000000');`
+`$content = openssl_encrypt($content, "AES-128-CBC", $_SESSION['crypt_key'], 0, '0000000000000000');`
 
 ## Desencriptar
-`$content = openssl_decrypt($content, "AES-128-CBC", $_SESSION['user_md5'], 0, '0000000000000000');`
+`$content = openssl_decrypt($content, "AES-128-CBC", $_SESSION['crypt_key'], 0, '0000000000000000');`
