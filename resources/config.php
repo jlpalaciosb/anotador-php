@@ -2,10 +2,10 @@
 
 $config = array(
 	'db' => array(
-		'name' => 'diary',
+		'name' => 'postgres',
 		'user' => 'postgres',
-		'pass' => 'admin',
-		'host' => 'localhost'
+		'pass' => 'postgres',
+		'host' => 'postgres'
 	)
 );
 
