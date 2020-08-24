@@ -1,7 +1,7 @@
 {
     "version": "3",
     "volumes": {
-        "anotador-postgres-data": {}
+        "notebook-postgres-data": {}
     },
     "services": {
         "postgres": {
@@ -10,7 +10,7 @@
                 "POSTGRES_PASSWORD": "postgres"
             },
             "volumes": [
-                "anotador-postgres-data:/var/lib/postgresql/data/",
+                "notebook-postgres-data:/var/lib/postgresql/data/",
                 "./initdb/:/docker-entrypoint-initdb.d/"
             ],
             "ports": [
@@ -34,3 +34,4 @@
         }
     }
 }
+
