@@ -1,0 +1,36 @@
+{
+    "version": "3",
+    "volumes": {
+        "anotador-postgres-data": {}
+    },
+    "services": {
+        "postgres": {
+            "image": "postgres:alpine",
+            "environment": {
+                "POSTGRES_PASSWORD": "postgres"
+            },
+            "volumes": [
+                "anotador-postgres-data:/var/lib/postgresql/data/",
+                "./initdb/:/docker-entrypoint-initdb.d/"
+            ],
+            "ports": [
+                "2345:5432"
+            ]
+        },
+        "apache": {
+            "build": {
+                "context": "./",
+                "dockerfile": "Dockerfile"
+            },
+            "volumes": [
+                "./:/var/www/"
+            ],
+            "ports": [
+                "8008:80"
+            ],
+            "depends_on": [
+                "postgres"
+            ]
+        }
+    }
+}
