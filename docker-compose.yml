@@ -5,7 +5,7 @@
     },
     "services": {
         "postgres": {
-            "image": "postgres:alpine",
+            "image": "postgres:9.6-alpine",
             "environment": {
                 "POSTGRES_PASSWORD": "postgres"
             },
@@ -17,7 +17,7 @@
                 "2345:5432"
             ]
         },
-        "apache": {
+        "php-apache": {
             "build": {
                 "context": "./",
                 "dockerfile": "Dockerfile"
@@ -34,4 +34,3 @@
         }
     }
 }
-
