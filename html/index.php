@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Diario</title>
+	<title>Anotador</title>
 	<meta charset="UTF-8">
 	<link rel="shortcut icon" type="image/png" href="/assets/img/diarioapp.png"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +35,7 @@
 	<script type="text/javascript">
 		var a_eliminar = 'initial';
 		var id_eliminar = -1;
-		var modal_body0 = '<p>¿Seguro que quieres eliminar tu diario del <span id="span"></span>?</p>';
+		var modal_body0 = '<p>¿Seguro que quieres eliminar tus notas del <span id="span"></span>?</p>';
 		var modal_body1 = '<p>Eliminando</p><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>';
 		var modal_body2 = '<p>Eliminado</p>';
 		var modal_footer0 = '<button type="button" class="btn btn-danger" onclick="eliminar()">Sí</button> <button type="button" class="btn btn-default" data-dismiss="modal">No</button>';
@@ -73,7 +73,7 @@
 			content += '</td>';
 			content += '<td class="text-right text-nowrap">';
 			content +=     '<a href="/entry/new.php?date=' + a_eliminar + '">';
-			content +=         '<button class="btn btn-xs btn-info">Cargar</button> ';
+			content +=         '<button class="btn btn-xs btn-info">Escribir</button> ';
 			content +=     '</a> ';
 			content += '</td> ';
 			$("#"+id_eliminar).html(content);
@@ -96,7 +96,7 @@
 		<?php include(TEMPLATES_PATH . '/encabezado.php'); ?>
 
 		<!--Navegador de Meses-->
-		<center><div class="cuadro" style="text-align: center; max-width: 350px;">
+		<center><div class="cuadro" style="text-align: center; max-width: 350px; margin-top: 15px;">
 			<a class="btn btn-default" href="/index.php?date=<?php echo mes_anterior($_GET['date'])?>" style="width: 60px;">
 				<?php echo substr($GLOBALS['meses'][intval(substr(mes_anterior($_GET['date']), 5)) - 1], 0 , 3) ?>
 			</a>
@@ -107,15 +107,15 @@
 				<?php echo substr($GLOBALS["meses"][intval(substr(mes_siguiente($_GET['date']), 5)) - 1], 0 , 3) ?>
 			</a>
 		</div></center>
-		<!--Fin del Complejo Navegador de Meses (ok no!)-->
+		<!--Fin del Complejo Navegador de Meses, ok no->
 
 		<!--Título de la lista-->
 		<div id="listTitle">
 			<h1 class="outside">
-				Tus diarios de <?php echo legible_YM($_GET['date']) ?>
+				Notas de <?php echo legible_YM($_GET['date']) ?>
 			</h1>
 			<a href="/entry/new.php?date=<?php echo get_current_date() ?>">
-	 			<img src="/assets/img/add.png" title="Carga tu diario de hoy">
+	 			<img src="/assets/img/add.png" title="Escribe tus notas de hoy">
 			</a>
 			<div class="clearman"></div>
 		</div>
@@ -143,7 +143,7 @@
 				<div class="modal-content" style="background-color: lightgrey; padding: 10px 0px 5px 0px; border-radius: 5px;">
 					<div class="modal-header" style="background-color: lightgrey;">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Eliminar diario</h4>
+						<h4 class="modal-title">Eliminar notas de esta fecha</h4>
 					</div>
 					<div class="modal-body" id="modal-body" style="background-color: grey;color: white;"></div>
 					<div class="modal-footer" id="modal-footer" style="background-color: lightgrey;"></div>
@@ -178,7 +178,7 @@
 		echo '<td class="text-right text-nowrap">';
 			if (exists_entry($_SESSION['user'], $date)) {
 				echo '<a href="/entry/edit.php?date=' . $date . '">';
-					echo '<button class="btn btn-xs btn-info">Editar</button>';
+					echo '<button class="btn btn-xs btn-info">Escribir</button>';
 				echo '</a>' . "\n";
 
 				echo '<button class="btn btn-xs btn-warning" onclick="a_eliminar=\'' . $date . '\';id_eliminar=' . $dia . ';on_show_modal();" data-toggle="modal" data-target="#myModal">';
@@ -186,7 +186,7 @@
 				echo '</button>';
 			} else {
 				echo '<a href="/entry/new.php?date=' . $date . '">';
-					echo '<button class="btn btn-xs btn-info">Cargar</button>' . "\n";
+					echo '<button class="btn btn-xs btn-info">Escribir</button>' . "\n";
 				echo '</a>' . "\n";
 			}
 		echo '</td>' . "\n";

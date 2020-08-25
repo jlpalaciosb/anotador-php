@@ -5,15 +5,15 @@ $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "
 #Recibe = YYYY-MM
 #Retorna = mes AÑO, ejemplo = mayo 2018
 function legible_YM ($year_month) {
-	return $GLOBALS["meses"][intval(substr($year_month, 5)) - 1] . " " . substr($year_month, 0, 4);
+	return $GLOBALS["meses"][intval(substr($year_month, 5)) - 1] . " / " . substr($year_month, 0, 4);
 }
 
 #retorna la fecha en un formato más legible
 function legible_YMD ($anho, $mes, $dia) {
 	$str  = "";
 	if ($dia < 10) $str = $str . "0";
-	$str = $str . strval($dia) . " - ";
-	$str = $str . $GLOBALS["meses"][$mes - 1] . " - ";
+	$str = $str . strval($dia) . " / ";
+	$str = $str . $GLOBALS["meses"][$mes - 1] . " / ";
 	$str = $str . strval($anho);
 	return $str;
 }

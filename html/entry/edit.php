@@ -63,7 +63,7 @@
 		<form class="cuadro" method="post" action="/entry/edit.php">
 			<input style="display:none;" type="text" name="date" value="<?php echo $_GET["date"]; ?>">
 			<div class="form-group">
-				<label for="content">Edite este diario</label>
+				<label for="content">Escribe tus notas</label>
 				<textarea id="ta" rows="4" name="content" class="form-control"><?php echo $content ?></textarea>
 			</div>
 			<button type="submit" class="btn btn-primary" onclick="window.onbeforeunload=null">Guardar</button>

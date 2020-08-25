@@ -51,12 +51,12 @@
 <body>
 	<div class="container">
 		<div class="form-container">
-			<img src="/assets/img/diarioapp2.png">
+			<img src="/assets/img/diarioapp2.png" style="margin-bottom: 5px">
 			<form class="cuadro" method="post" action="/user/register.php">
 				<h2>Crear cuenta</h2>
 				<div class="form-group">
 					<label for="new_user">Nombre de Usuario</label>
-					<input required class="form-control" type="text" name="user" placeholder="Escoge un nombre de usuario" value="<?php echo $user ?>" autofocus>
+					<input required class="form-control" type="text" name="user" placeholder="Elige un nombre de usuario" value="<?php echo $user ?>" autofocus>
 				</div>
 				<div class="form-group">
 					<label for="pass">Contraseña</label>
@@ -68,7 +68,7 @@
 				</div>
 				<p class="error"><?php echo $error; ?></p>
 				<center><button type="submit" class="btn btn-primary">Crear Cuenta</button></center>
-				<p style="text-align: right;margin-top: 15px;margin-bottom: 0px;"><a href="/login/index.php">Iniciar Sesión</a></p>
+				<p style="text-align: right;margin-top: 15px;margin-bottom: 0px;"><a href="/user/login.php">Iniciar Sesión</a></p>
 			</form>
 
 			<div style="margin-top: 10px;"></div>

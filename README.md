@@ -1,3 +1,5 @@
+# Disclaimer
+
 # Encriptar y desencriptar cosas
 Para asegurar que en la base de datos, los diarios se guardan encriptados.
 

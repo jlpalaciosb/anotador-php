@@ -38,7 +38,7 @@
 <body>
 	<div class="container">
 		<div class="form-container">
-			<img src="/assets/img/diarioapp2.png">
+			<img src="/assets/img/diarioapp2.png" style="margin-bottom: 5px">
 			<form class="cuadro" method="post" action="/user/login.php">
 				<h2>Iniciar Sesión</h2>
 				<div class="form-group">
