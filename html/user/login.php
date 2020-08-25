@@ -4,7 +4,7 @@
 
 	session_start();
 
-	if(isset($_SESSION['user'])) { #Already started session
+	if(isset($_SESSION['user'])) { # Already started session
 		header('Location: /index.php');
 		exit();
 	}
@@ -40,7 +40,7 @@
 		<div class="form-container">
 			<img src="/assets/img/diarioapp2.png" style="margin-bottom: 5px">
 			<form class="cuadro" method="post" action="/user/login.php">
-				<h2>Iniciar Sesión</h2>
+				<h2>Inicia Sesión</h2>
 				<div class="form-group">
 					<label for="username">Nombre de Usuario</label>
 					<input autofocus required class="form-control" type="text" name="user" placeholder="Ingresa tu nombre de usuario" value="<?php echo $user;?>">
