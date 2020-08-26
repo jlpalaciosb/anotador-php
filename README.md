@@ -1,6 +1,6 @@
 # Notebook PHP
 
-Basic web application written in PHP 7 (no framework used) to keep a notebook of daily notes. When I made this project around 2018 my objective was to learn web development and the PHP language.
+Basic web application written in PHP (no framework used) to keep a notebook of daily notes. When I made this project around 2018 my objective was to learn web development and the PHP language.
 
 ### Key Features
 
