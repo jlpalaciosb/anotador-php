@@ -1,13 +1,35 @@
-# Disclaimer
+# Notebook PHP
 
-# Encriptar y desencriptar cosas
-Para asegurar que en la base de datos, los diarios se guardan encriptados.
+Basic web application written in PHP 7 (no framework used) to keep a notebook of daily notes. When I made this project around 2018 my objective was to learn web development and the PHP language.
 
-## Clave
-`$_SESSION['crypt_key'] = md5($username . $password);`
+### Key Features
 
-## Encriptar
-`$content = openssl_encrypt($content, "AES-128-CBC", $_SESSION['crypt_key'], 0, '0000000000000000');`
+* User login.
+* Store user notes by date.
+* Store the user notes encrypted in the database.
+* Navigate per month.
 
-## Desencriptar
-`$content = openssl_decrypt($content, "AES-128-CBC", $_SESSION['crypt_key'], 0, '0000000000000000');`
+## Getting Started
+
+You can run the app with docker!
+
+### Prerequisites
+
+* docker
+* docker-compose
+
+### Install
+
+Follow this instructions to run the application on your machine.
+1. `git clone git@github.com:jlpalaciosb/notebook-php.git`
+2. `cd notebook-php`
+3. `docker-compose up`
+4. Visit `localhost:8008` in your browser.
+
+## Developed with
+
+* [PHP 7](https://hub.docker.com/_/php)
+* [PostgreSQL 9](https://hub.docker.com/_/postgres)
+* [Apache 2](https://hub.docker.com/_/php)
+
+⌨️ with ❤️ by [jlpalaciosb](https://github.com/jlpalaciosb) 😊
