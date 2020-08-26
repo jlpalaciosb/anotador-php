@@ -24,7 +24,7 @@ Follow this instructions to run the application on your machine.
 1. `git clone git@github.com:jlpalaciosb/notebook-php.git`
 2. `cd notebook-php`
 3. `docker-compose up`
-4. Visit `localhost:8008` in your browser.
+4. Visit [localhost:8008](http://localhost:8008) in your browser.
 
 ## Developed with
 
