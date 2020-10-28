@@ -9,12 +9,9 @@ Basic web application written in PHP (no framework used) to keep a notebook of d
 * Store the user notes encrypted in the database.
 * Navigate per month.
 
-## Getting Started
-
-You can run the app with docker!
-
 ### Prerequisites
 
+You can run the app with docker!
 * docker
 * docker-compose
 
@@ -31,5 +28,3 @@ Follow this instructions to run the application on your machine.
 * [PHP 7](https://hub.docker.com/_/php)
 * [PostgreSQL 9](https://hub.docker.com/_/postgres)
 * [Apache 2](https://hub.docker.com/_/php)
-
-⌨️ with ❤️ by [jlpalaciosb](https://github.com/jlpalaciosb) 😊
