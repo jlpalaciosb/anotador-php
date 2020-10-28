@@ -11,7 +11,7 @@ Basic web application written in PHP (no framework used) to keep a notebook of d
 
 ### Prerequisites
 
-You can run the app with docker!
+You can run the app with docker.
 * docker
 * docker-compose
 
